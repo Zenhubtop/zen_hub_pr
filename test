@@ -1,7 +1,5 @@
 local UIq = Instance.new("ScreenGui")
-UIq.Name = "UIq"
-UIq.Parent = Core:WaitForChild("RobloxGui"):WaitForChild("Modules")
-UIq.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+UIq.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 local ThunderScreen = Instance.new("ScreenGui")
 local ThunderToggleUI = Instance.new("TextButton")
 local ThunderCornerUI = Instance.new("UICorner")
@@ -21,9 +19,10 @@ ThunderToggleUI.Text = ""
 ThunderToggleUI.TextColor3 = Color3.fromRGB(0, 0, 0)
 ThunderToggleUI.TextSize = 14.000;
 ThunderToggleUI.Draggable = true;
+ThunderToggleUI.Visible = false;
 ThunderToggleUI.MouseButton1Click:Connect(function()
 	game.CoreGui:FindFirstChild("1xliiUI").Enabled = not game.CoreGui:FindFirstChild("1xliiUI").Enabled
-  Open.Visible = false
+  ThunderToggleUI.Visible = false
 end)
 ThunderCornerUI.Name = "ThunderCornerUI"
 ThunderCornerUI.Parent = ThunderToggleUI;
@@ -34,7 +33,7 @@ ThunderImageUI.BackgroundTransparency = 1.000;
 ThunderImageUI.BorderSizePixel = 0;
 ThunderImageUI.Position = UDim2.new(0.0, 0, 0.0, 0)
 ThunderImageUI.Size = UDim2.new(0, 50, 0, 50)
-ThunderImageUI.Image = "http://www.roblox.com/asset/?id=14288624550"
+ThunderImageUI.Image = "http://www.roblox.com/asset/?id=15808729999"
 
 _G.Color1 = Color3.fromRGB(0,255,0)
 do local GUI = game.CoreGui:FindFirstChild("1xliiUI");if GUI then GUI:Destroy();end;if _G.Color == nil then
@@ -217,7 +216,7 @@ BindButton.Visible = true
 
 BindButton.MouseButton1Click:Connect(function ()
   game.CoreGui:FindFirstChild("1xliiUI").Enabled = not game.CoreGui:FindFirstChild("1xliiUI").Enabled
-  Open.Visible = true
+  ThunderToggleUI.Visible = true
   end)
 
 
@@ -727,6 +726,17 @@ end
 				MainDropDown_2.ZIndex = 16;
 				UICorner_8.CornerRadius = UDim.new(0, 4)
 				UICorner_8.Parent = MainDropDown_2;
+				
+				local Dropstroke = Instance.new("UIStroke")
+Dropstroke.Name = "Dropstroke"
+Dropstroke.Parent = MainDropDown;
+Dropstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+Dropstroke.Color = _G.Color;
+Dropstroke.LineJoinMode = Enum.LineJoinMode.Round;
+Dropstroke.Thickness = 1;
+Dropstroke.Transparency = 0;
+Dropstroke.Enabled = true;
+Dropstroke.Archivable = true;
 				v.Name = "v"
 				v.Parent = MainDropDown_2;
 				v.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1246,3 +1256,5 @@ end
 return uitab
 end
 return Update
+
+    
