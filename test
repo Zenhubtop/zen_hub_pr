@@ -1,5 +1,5 @@
 local UIq = Instance.new("ScreenGui")
-UIq.Name = tostring(HTTP:GenerateGUID(false))
+UIq.Name = "UIq"
 UIq.Parent = Core:WaitForChild("RobloxGui"):WaitForChild("Modules")
 UIq.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
 local ThunderScreen = Instance.new("ScreenGui")
