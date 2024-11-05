@@ -3104,4 +3104,4 @@ local executorName = identifyexecutor()  -- Get the executor name
 if executorName == "Solara" then
     executorName = "Solara - Some functions may not work like fast attack etc.."  -- Update the executor name
 end
-return Windows
+return UIConfig
