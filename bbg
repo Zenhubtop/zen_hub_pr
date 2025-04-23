@@ -1126,7 +1126,7 @@ end)
 
 				TabButton.Name = tostring(TabName or "Main")
 				TabButton.Parent = MainFrame:WaitForChild('Search'):WaitForChild('TabFrames')
-				TabButton.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+				TabButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 				TabButton.BackgroundTransparency = 1
 				TabButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 				TabButton.BorderSizePixel = 0
@@ -1210,44 +1210,48 @@ end)
 				Button.TextSize = 14.000
 				Button.TextTransparency = 1.000
 
-local function connect(val)
-    local low = UDim2.fromScale(0.9, 0.95)
-
-    if val then
-         MainScrolling.Visible = true
-        -- Changing the Text color and transparency
-        Text.TextColor3 = Color3.fromRGB(221, 160, 221)
-        TabButton.BackgroundTransparency = 0
-        TweenService:Create(TabIcon, TweenInfo.new(0.15), {ImageTransparency = 0}):Play()
-        TweenService:Create(Description, TweenInfo.new(0.15), {TextTransparency = 0.5}):Play()
-        TweenService:Create(Text, TweenInfo.new(0.15), {TextTransparency = 0}):Play()
-        TweenService:Create(UIStroke, TweenInfo.new(0.15), {Transparency = 0.25}):Play()
-
-        -- Pop effect (Zoom In) with smoother easing and scaling
-        TweenService:Create(MainScrolling, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-            Position = UDim2.new(0.5, 0, 0.5, 0),  -- Center the element
-            Size = UDim2.new(1, 0, 1, 0)  -- Smoothly scale to full size
-        }):Play()
-   
-    else
-        -- Changing the Text color and transparency for when it's disabled
-        Text.TextColor3 = Color3.fromRGB(255, 255, 255)
-        TabButton.BackgroundTransparency = 1
-        TweenService:Create(TabIcon, TweenInfo.new(0.15), {ImageTransparency = 0.55}):Play()
-        TweenService:Create(Description, TweenInfo.new(0.15), {TextTransparency = 0.85}):Play()
-        TweenService:Create(Text, TweenInfo.new(0.15), {TextTransparency = 0.55}):Play()
-        TweenService:Create(UIStroke, TweenInfo.new(0.15), {Transparency = 0.65}):Play()
-
-        -- Zoom-out effect (Shrink) with smoother easing and scaling
-        TweenService:Create(MainScrolling, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-            Position = UDim2.new(0.5, 0, 0.5, 0),  -- Keep centered
-            Size = UDim2.new(0, 0, 0, 0)  -- Smoothly shrink to zero size
-        }):Play()
-    wait(0.2)
-    MainScrolling.Visible = false
-    end
-end
-
+				local function connect(val)
+					local centerPos = UDim2.new(0.5, 0, 0.5, 0)
+					local fullSize = UDim2.new(1, 0, 1, 0)
+					local smallSize = UDim2.new(0.8, 0, 0.8, 0)
+				
+					if val then
+						-- Activate visuals
+						MainScrolling.Visible = true -- Make sure it's visible
+						Text.TextColor3 = Color3.fromRGB(221, 160, 221)
+						TabButton.BackgroundTransparency = 0
+						TweenService:Create(TabIcon, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
+						TweenService:Create(Description, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextTransparency = 0.5}):Play()
+						TweenService:Create(Text, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+						TweenService:Create(UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Transparency = 0.25}):Play()
+				
+						TweenService:Create(MainScrolling, TweenInfo.new(0.35, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+							Position = centerPos,
+							Size = fullSize
+						}):Play()
+				
+					else
+						-- Deactivate visuals
+						Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+						TabButton.BackgroundTransparency = 1
+						TweenService:Create(TabIcon, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {ImageTransparency = 0.55}):Play()
+						TweenService:Create(Description, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {TextTransparency = 0.85}):Play()
+						TweenService:Create(Text, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {TextTransparency = 0.55}):Play()
+						TweenService:Create(UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {Transparency = 0.65}):Play()
+				
+						-- Tween and hide after animation
+						local tween = TweenService:Create(MainScrolling, TweenInfo.new(0.35, Enum.EasingStyle.Cubic, Enum.EasingDirection.In), {
+							Position = centerPos,
+							Size = smallSize
+						})
+				
+						tween:Play()
+						tween.Completed:Connect(function()
+							MainScrolling.Visible = false
+						end)
+					end
+				end
+				
 
 
 				if not MenuAlc[1] then
@@ -1372,18 +1376,13 @@ end
     SectionFrame.Name = "SectionFrame"
     SectionFrame.Parent = MainScrollingfr
     SectionFrame.BackgroundColor3 = Color3.fromRGB(23, 23, 23)
-	SectionFrame.BackgroundTransparency = 0.6
+	SectionFrame.BackgroundTransparency = 1
     SectionFrame.Size = UDim2.new(1, -10, 0, 65) -- Added horizontal padding
-    SectionFrame.ZIndex = 4
+    SectionFrame.ZIndex = 6
     SectionFrame.ClipsDescendants = true -- Ensures nothing goes out of bounds
     UpdateSiz() -- Call it initially to set the right size
 
-    UICorner.Parent = SectionFrame
 
-    UIStroke.Color = Color3.fromRGB(221,160,221)
-	UIStroke.Transparency = 0.9
-    UIStroke.Parent = SectionFrame
-    UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border  -- Ensure stroke is applied as a border
 
     UIListLayout.Parent = SectionFrame
     UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -1397,6 +1396,12 @@ end
     Header.BackgroundTransparency = 1.000
     Header.Size = UDim2.new(0.95, 0, 0.5, 0)
     Header.ZIndex = 5
+    UICorner.Parent = Header
+	UIStroke.Color = Color3.fromRGB(221,160,221)
+	UIStroke.Transparency = 0.9
+    UIStroke.Parent = Header
+    UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border  -- Ensure stroke is applied as a border
+
 
     UIAspectRatioConstraint.Parent = Header
     UIAspectRatioConstraint.AspectRatio = 4.000
@@ -2957,4 +2962,64 @@ end
 	end
 return WindowAlc
 end
-return Alc
+
+_G.Title = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local Window = Alc:NewWindow('', "Executor : " .. identifyexecutor(), 'rbxassetid://17775417459')
+local MenuFunctions = Window:AddMenu('' .. _G.Title, "", 'ticket', 'tab')
+
+local Tab_1 = MenuFunctions:AddTab("Information", 10723415903,"changelog,credits,etc..")
+local Tab_Setting = MenuFunctions:AddTab("Configs Farm", 10734950020,"distance,bringmob")
+local Tab_2 = MenuFunctions:AddTab("Main Farm", 10723407389,"farm,bossess,etc.")
+local Tab_3 = MenuFunctions:AddTab("Items Farm", 15557776256,"items,swords.etc..")
+local Stats = MenuFunctions:AddTab("Local Player", 10709770431,"stats,fake,etc")
+local Events = MenuFunctions:AddTab("Sea Events", 10734941354,"mirrage,auto boat")
+local dragons = MenuFunctions:AddTab("Dragon Events", 105643281470017,"auto dojo,belt,etc")
+local Racev4 = MenuFunctions:AddTab("Race V4", 14477517268,"racev4,moons,etc.")
+local Tab_4 = MenuFunctions:AddTab("Dungeon Raid", 10734932295,"autoraid,boss")
+local Tab_5 = MenuFunctions:AddTab("Island Travel", 10734886004,"teleport,hop,etc..")
+local Tab_6 = MenuFunctions:AddTab("Stores", 10734952479,"melee,swords,guns")
+local Tab_7 = MenuFunctions:AddTab("Miscellaneous", 10734949856,"auto open,auto switch")
+local Tab_8 = MenuFunctions:AddTab("Fun Visual", 6034467796,"auto v4 any race,rainfruit")
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer 
+--local imageLabel = script.Parent 
+local userId = player.UserId
+local thumbType = Enum.ThumbnailType.HeadShot
+local thumbSize = Enum.ThumbnailSize.Size420x420
+
+local imageUrl, isReady = Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+
+local Home_Left = Tab_1:AddSection('Info',''..player.Name.."  [ User Id : "..player.UserId.." ]",'Join Zen Hub Discord For Updates! \nuse at your own risk.',''..imageUrl)
+
+
+local Home_Right = Tab_1:AddSection('Changelog','Script Made By jay#0050','Join Zen Hub Discord For Updates! \nuse at your own risk.','http://www.roblox.com/asset/?id=6031233840')
+
+local TimeGame = Home_Right:AddLabel("Time")
+function UpdateTime()
+	local GameTime = math.floor(workspace.DistributedGameTime + 0.5)
+	local Hour = math.floor(GameTime / (60 ^ 2)) % 24;
+	local Minute = math.floor(GameTime / (60 ^ 1)) % 60;
+	local Second = math.floor(GameTime / (60 ^ 0)) % 60;
+	local FormatTime = string.format("%02d.%02d.%02d", Hour, Minute, Second)
+	TimeGame:Set("Game Time : " .. FormatTime)
+end;
+spawn(function()
+	while task.wait() do
+		UpdateTime()
+	end
+end)
+
+Home_Right:AddToggle('Request Dojo Trainer Quest', DojoRequestQuest, function(Value)
+    DojoRequestQuest = Value
+    CancelTween(DojoRequestQuest)
+end)
+
+Home_Right:Button('Teleport to Dragon Hunter', function()
+    Tween(CFrame.new(5865.80811, 1209.50269, 811.746582, -0.675207436, -6.76664627e-08, 0.737627923, 8.33632186e-09, 1, 9.93661047e-08, -0.737627923, 7.32418357e-08, -0.675207436))
+end)
+
+Home_Right:AddDropdown("Farm Distance", { "5", "10", "15", "20", "25", "30" }, "20", function(value)
+    DisFarm1 = value  -- Use the correct variable name
+end)
+
