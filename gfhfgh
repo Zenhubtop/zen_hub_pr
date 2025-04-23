@@ -1211,44 +1211,28 @@ end)
 				Button.TextTransparency = 1.000
 
 				local function connect(val)
-					local centerPos = UDim2.new(0.5, 0, 0.5, 0)
-					local fullSize = UDim2.new(1, 0, 1, 0)
-					local smallSize = UDim2.new(0.8, 0, 0.8, 0)
-				
+					local low = UDim2.fromScale(0.9,0.95)
 					if val then
-						-- Activate visuals
-						MainScrolling.Visible = true -- Make sure it's visible
-						Text.TextColor3 = Color3.fromRGB(221, 160, 221)
+                        Text.TextColor3 = Color3.fromRGB(221,160,221)
 						TabButton.BackgroundTransparency = 0
-						TweenService:Create(TabIcon, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
-						TweenService:Create(Description, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextTransparency = 0.5}):Play()
-						TweenService:Create(Text, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
-						TweenService:Create(UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Transparency = 0.25}):Play()
-				
-						TweenService:Create(MainScrolling, TweenInfo.new(0.35, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
-							Position = centerPos,
-							Size = fullSize
+						TweenService:Create(TabIcon,TweenInfo.new(0.15),{ImageTransparency = 0}):Play()
+						TweenService:Create(Description,TweenInfo.new(0.15),{TextTransparency = 0.5}):Play()
+						TweenService:Create(Text,TweenInfo.new(0.15),{TextTransparency = 0}):Play()
+						TweenService:Create(UIStroke,TweenInfo.new(0.15),{Transparency = 0.25}):Play()
+						TweenService:Create(MainScrolling,TweenInfo.new(0.4),{
+							Position = UDim2.new(0.5, 0, 0.5, 0)
 						}):Play()
-				
 					else
-						-- Deactivate visuals
-						Text.TextColor3 = Color3.fromRGB(255, 255, 255)
-						TabButton.BackgroundTransparency = 1
-						TweenService:Create(TabIcon, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {ImageTransparency = 0.55}):Play()
-						TweenService:Create(Description, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {TextTransparency = 0.85}):Play()
-						TweenService:Create(Text, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {TextTransparency = 0.55}):Play()
-						TweenService:Create(UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {Transparency = 0.65}):Play()
-				
-						-- Tween and hide after animation
-						local tween = TweenService:Create(MainScrolling, TweenInfo.new(0.35, Enum.EasingStyle.Cubic, Enum.EasingDirection.In), {
-							Position = centerPos,
-							Size = smallSize
-						})
-				
-						tween:Play()
-						tween.Completed:Connect(function()
-							MainScrolling.Visible = false
-						end)
+Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+TabButton.BackgroundTransparency = 1
+						TweenService:Create(TabIcon,TweenInfo.new(0.15),{ImageTransparency = 0.55}):Play()
+						TweenService:Create(Description,TweenInfo.new(0.15),{TextTransparency = 0.85}):Play()
+						TweenService:Create(Text,TweenInfo.new(0.15),{TextTransparency = 0.55}):Play()
+						TweenService:Create(UIStroke,TweenInfo.new(0.15),{Transparency = 0.65}):Play()
+						TweenService:Create(MainScrolling,TweenInfo.new(0.4),{
+							Position = UDim2.fromScale(1.55,0.5)
+						}):Play()
+
 					end
 				end
 				
