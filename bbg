@@ -1476,7 +1476,7 @@ function Alc:NewWindow(WindowName, WindowDescription, WindowLogo)
                 SectionTitle.Size = UDim2.new(0.98, 0, 0.5, 0)
                 SectionTitle.ZIndex = 4
                 SectionTitle.Font = Enum.Font.GothamBold
-                SectionTitle.Text = SectionName or SectionHeader or "SECTION"
+				SectionTitle.Text = (SectionName and SectionName ~= "" and SectionName) or SectionHeader or "SECTION"
                 SectionTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
                 SectionTitle.TextSize = 15
                 SectionTitle.TextScaled = false
