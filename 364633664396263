@@ -338,6 +338,7 @@ Image.Position = UDim2.new(0.5, 0, 0.5, 0) -- center of Frame
 Image.Size = UDim2.fromScale(0.5, 0.5) -- 50% of Frame size
 Image.BackgroundTransparency = 1
 Image.Image = "rbxassetid://116422175458617"
+Image.ImageTransparency = 0.9
 Image.SizeConstraint = Enum.SizeConstraint.RelativeYY
 
 
@@ -1663,7 +1664,7 @@ Title.BackgroundTransparency = 1
 Title.BorderSizePixel = 0
 Title.Position = UDim2.new(0, 14, 0, 0)
 Title.Size = UDim2.new(1, -(14 + 22), 1, 0) -- leave room for arrow
-Title.Font = Enum.Font.GothamSemibold
+Title.Font = Enum.Font.GothamBold
 Title.TextSize = 14
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.TextColor3 = Color3.fromRGB(235, 235, 245)
@@ -1743,142 +1744,7 @@ end)
     end
 
 
-                function SectionInfo:AddLabel(LabelName)
-                    local SectionTitle = Instance.new("TextLabel")
-                    local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-                    local Config = {}
-
-                    -- Configure the TextLabel
-                    SectionTitle.Name = "SectionTitle"
-                    SectionTitle.Parent = Content
-                    SectionTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    SectionTitle.BackgroundTransparency = 1.0
-                    SectionTitle.BorderSizePixel = 0
-                    SectionTitle.Size = UDim2.new(0.92, 0, 0.5, 0)
-                    SectionTitle.ZIndex = 4
-                    SectionTitle.Font = Enum.Font.GothamBold
-                    SectionTitle.Text = LabelName or "SECTION"
-                    SectionTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    SectionTitle.TextTransparency = 0.5
-                    SectionTitle.TextScaled = false
-                    SectionTitle.TextSize = 12.0
-                    SectionTitle.TextWrapped = true
-                    SectionTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-                    -- Set up AspectRatioConstraint
-                    UIAspectRatioConstraint.Parent = SectionTitle
-                    UIAspectRatioConstraint.AspectRatio = 23.0
-                    UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
-
-                    -- Function to update text
-                    function Config:Set(newText)
-                        SectionTitle.Text = tostring(newText)
-                    end
-
-                    -- Function to delete the label
-                    function Config:Delete()
-                        SectionTitle:Destroy()
-                        UpdateSiz()
-                    end
-
-                    -- Optionally update the section's size
-                    SectionInfo:Update()
-
-                    return Config
-                end
-
-                function SectionInfo:AddSeperator(text)
-                    local Seperator = Instance.new("Frame")
-                    local Sep1 = Instance.new("Frame")
-                    local Sep2 = Instance.new("TextLabel")
-                    local Sep3 = Instance.new("Frame")
-                    local Sep21 = Instance.new("TextLabel")
-                    local Sep212 = Instance.new("TextLabel")
-                    local UIStroke = Instance.new("UIStroke")
-                    local UICorner_2 = Instance.new("UICorner")
-
-                    Seperator.Name = "Seperator"
-                    Seperator.Parent = Content
-                    Seperator.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-                    Seperator.BorderSizePixel = 0
-                    Seperator.BackgroundTransparency = 1
-                    Seperator.ZIndex = 4
-                    Seperator.Size = UDim2.new(0.90, 0, 0, 30)
-
-                    UICorner_2.CornerRadius = UDim.new(0.4, 0)
-                    UICorner_2.Parent = Seperator
-
-                    UIStroke.Color = Alc.Config["MainColor"]
-                    UIStroke.Transparency = 0.5
-                    UIStroke.Parent = Seperator
-                    UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
-                    Sep1.Name = "Sep1"
-                    Sep1.Parent = Seperator
-                    Sep1.BackgroundColor3 = Alc.Config["MainColor"]
-                    Sep1.BackgroundTransparency = 0
-                    Sep1.ZIndex = 10
-                    Sep1.BorderSizePixel = 0
-                    Sep1.ZIndex = 6
-                    Sep1.Position = UDim2.new(0, 10, 0, 10)
-                    Sep1.Size = UDim2.new(0, 90, 0, 2)
-                    Sep1.Visible = false
-
-                    Sep2.Name = "Sep2"
-                    Sep2.Parent = Seperator
-                    Sep2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    Sep2.BackgroundTransparency = 1
-                    Sep2.AnchorPoint = Vector2.new(0.5, 0.5) -- Center alignment
-                    Sep2.Position = UDim2.new(0.5, 0, 0.5, 0) -- Centered position
-                    Sep2.Size = UDim2.new(0.95, 0, 0, 30) -- Width 95% of parent, height 30 pixels
-
-                    Sep2.Font = Enum.Font.SourceSansBold
-                    Sep2.Text = text
-                    Sep2.RichText = true
-                    Sep2.ZIndex = 6
-                    Sep2.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    Sep2.TextTransparency = 0.5
-                    Sep2.TextSize = 18.000
-
-                    Sep21.Name = "Sep2"
-                    Sep21.Parent = Seperator
-                    Sep21.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    Sep21.BackgroundTransparency = 1
-                    Sep21.Position = UDim2.new(0, 0, 0, 0)
-                    Sep21.Size = UDim2.new(0.3385, 0, 0, 30)
-                    Sep21.Font = Enum.Font.SourceSansBold
-                    Sep21.Text = "<<"
-                    Sep21.RichText = true
-                    Sep21.ZIndex = 6
-                    Sep21.TextColor3 = Alc.Config["MainColor"]
-                    Sep21.TextSize = 20.000
-
-                    Sep212.Name = "Sep2"
-                    Sep212.Parent = Seperator
-                    Sep212.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    Sep212.BackgroundTransparency = 1
-                    Sep212.Position = UDim2.new(0, 0, 0, 0)
-                    Sep212.AnchorPoint = Vector2.new(1, 0.5) -- Aligns the right edge of the frame to the position
-                    Sep212.Position = UDim2.new(0.8, 0, 0.5, 0)
-                    Sep212.Font = Enum.Font.SourceSansBold
-                    Sep212.Text = ">>"
-                    Sep212.RichText = true
-                    Sep212.ZIndex = 6
-                    Sep212.TextColor3 = Alc.Config["MainColor"]
-                    Sep212.TextSize = 20.000
-
-                    Sep3.Name = "Sep3"
-                    Sep3.Parent = Seperator
-                    Sep3.BackgroundColor3 = Alc.Config["MainColor"]
-                    Sep3.BackgroundTransparency = .1
-                    Sep3.BorderSizePixel = 0
-                    Sep3.ZIndex = 6
-                    Sep3.Visible = false
-                    Sep3.Position = UDim2.new(0, 280, 0, 10)
-                    Sep3.Size = UDim2.new(0, 90, 0, 2)
-                end
-
-                function SectionInfo:addLabel(text)
+                function SectionInfo:AddLabel(text)
                     local Label = Instance.new("TextLabel")
                     local PaddingLabel = Instance.new("UIPadding")
                     local labelfunc = {}
@@ -1886,11 +1752,11 @@ end)
                     Label.Parent = Content
                     Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                     Label.BackgroundTransparency = 1.000
-                    Label.Size = UDim2.new(0, 270, 0, 20)
+                    Label.Size = UDim2.new(0.94, 0, 0, 15)
                     Label.Font = Enum.Font.GothamBold
                     Label.TextColor3 = Color3.fromRGB(225, 225, 255)
                     Label.TextTransparency = 0.5
-                    Label.TextSize = 10.000
+                    Label.TextSize = 12.000
                     Label.Text = text
                     Label.ZIndex = 5
                     Label.TextXAlignment = Enum.TextXAlignment.Left
@@ -2320,8 +2186,8 @@ end
                     return Config
                 end
 
-                function SectionInfo:MultiDropdown(Name, option, default, callback)
-                    local selectedItems = default or {}
+                function SectionInfo:MultiDropdown(Name, Option, Default, Callback)
+                    local selectedItems = Default or {}
                     local isDropping = false
                     local Dropdown = Instance.new("Frame")
                     local UICorner = Instance.new("UICorner")
@@ -2359,7 +2225,7 @@ end
                     DropTitle.BackgroundTransparency = 1
                     DropTitle.Size = UDim2.new(0.90, 0, 0, 38)
                     DropTitle.Font = Enum.Font.GothamBold
-                    --DropTitle.Text = "   Select Multiple: " .. default
+                    --DropTitle.Text = "   Select Multiple: " .. Default
                     DropTitle.TextColor3 = Color3.fromRGB(190, 190, 190)
                     DropTitle.TextSize = 9
                     DropTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -2405,15 +2271,15 @@ end
                     local function getpro()
                         if #selectedItems > 0 then
                             return "   " .. "Select Multiple: " .. table.concat(selectedItems, ", ")
-                        elseif default and #default > 0 then
-                            return "   " .. "Select Multiple: " .. table.concat(default, ", ")
+                        elseif Default and #Default > 0 then
+                            return "   " .. "Select Multiple: " .. table.concat(Default, ", ")
                         else
                             return "   " .. "Select Multiple: "
                         end
                     end
 
-                    -- Initialize selectedItems with default values
-                    selectedItems = default or {}
+                    -- Initialize selectedItems with Default values
+                    selectedItems = Default or {}
                     DropTitle.Text = getpro() -- Set initial text
 
                     -- Update selected items and the display dynamically
@@ -2422,7 +2288,7 @@ end
                     end
 
                     -- Create options
-                    for i, v in ipairs(option) do
+                    for i, v in ipairs(Option) do
                         local Item = Instance.new("TextButton")
                         local UICorner1 = Instance.new("UICorner")
 
@@ -2439,7 +2305,7 @@ end
                         UICorner1.CornerRadius = UDim.new(0, 4)
                         UICorner1.Parent = Item
 
-                        -- Check if this option is already selected and update the item appearance
+                        -- Check if this Option is already selected and update the item appearance
                         if table.find(selectedItems, v) then
                             Item.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                         end
@@ -2457,7 +2323,7 @@ end
                                     Item.BackgroundColor3 = Color3.fromRGB(0, 50, 0)
                                 end
                                 DropTitle.Text = getpro()
-                                callback(selectedItems)
+                                Callback(selectedItems)
                             end
                         )
                     end
@@ -2509,7 +2375,7 @@ end
                                         Item.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                                     end
                                     DropTitle.Text = getpro()
-                                    callback(selectedItems)
+                                    Callback(selectedItems)
                                 end
                             )
                         end,
@@ -2521,7 +2387,7 @@ end
                                     v.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
                                 end
                             end
-                            callback(selectedItems)
+                            Callback(selectedItems)
                         end
                     }
                 end
@@ -2535,9 +2401,9 @@ end
     -- Extract fields with defaults
     local Name = config.Name or "Dropdown"
     local Description = config.Description or ""
-    local option = config.option or {}
-    local default = config.default or option[1]
-    local callback = config.callback or function() end
+    local Option = config.Option or {}
+    local Default = config.Default or Option[1]
+    local Callback = config.Callback or function() end
 
     local Selected = Default
 
@@ -2623,7 +2489,7 @@ end
                     OverlayPanel.Parent = screenGui or Dropdown
                     OverlayPanel.BackgroundColor3 = Color3.fromRGB(22, 22, 28)
                     OverlayPanel.BorderSizePixel = 0
-                    OverlayPanel.Size = UDim2.new(0, 180, 0, math.min(#option * 46 + 8, 220))
+                    OverlayPanel.Size = UDim2.new(0, 180, 0, math.min(#Option * 46 + 8, 220))
                     OverlayPanel.Visible = false
                     OverlayPanel.ZIndex = 100
                     OverlayPanel.ClipsDescendants = true
@@ -2704,10 +2570,10 @@ end
                         TweenService:Create(DropImage, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = 180}):Play()
                     end
 
-                    -- Build option items
+                    -- Build Option items
                     local UICorner1 = Instance.new("UICorner")
 
-                    for i, v in next, option do
+                    for i, v in next, Option do
                         local ItemFrame = Instance.new("Frame")
                         ItemFrame.Name = "ItemFrame"
                         ItemFrame.Parent = DropScroll
@@ -2794,7 +2660,7 @@ end
                             DropSub.TextColor3 = Color3.fromRGB(200, 200, 220)
 
                             closeOverlay()
-                            callback(v)
+                            Callback(v)
                         end)
                     end
 
@@ -2819,9 +2685,9 @@ end
                         OverlayPanel.Size = UDim2.new(0, 200, 0, math.min(UIListLayout.AbsoluteContentSize.Y + 16, 220))
                     end)
 
-                    -- Call default callback if default is valid
-                    if default and table.find(option, default) then
-                        callback(default)
+                    -- Call Default Callback if Default is valid
+                    if Default and table.find(Option, Default) then
+                        Callback(Default)
                     end
 
                     SectionInfo:Update()
@@ -2900,7 +2766,7 @@ end
                             DropSub.Text = tostring(t)
                             DropSub.TextColor3 = Color3.fromRGB(200, 200, 220)
                             closeOverlay()
-                            callback(t)
+                            Callback(t)
                         end)
                     end
 
@@ -3111,7 +2977,7 @@ end
                         CustomValue.Text = newStr
                         TweenService:Create(MainValue, TweenInfo.new(0.12), {Size = UDim2.new(rel, 0, 1, 0)}):Play()
                         TweenService:Create(ConneValue, TweenInfo.new(0.12), {Position = UDim2.new(rel, 0, 0.5, 0)}):Play()
-                        pcall(callback, val)
+                        pcall(Callback, val)
                     end
 
                     local function move(inputX)
@@ -3184,7 +3050,7 @@ end
         error("AddButton expects a table")
     end
     local ButtonName = config.Title or "Button"
-    local callback = config.callback or function() end
+    local Callback = config.Callback or function() end
     
                     local Button = Instance.new("Frame")
                     local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -3258,7 +3124,7 @@ end
                         end
                     )
 
-                    c.MouseButton1Click:Connect(callback)
+                    c.MouseButton1Click:Connect(Callback)
 
                     local Config = {}
 
@@ -3267,7 +3133,7 @@ end
                     end
 
                     function Config:Fire(...)
-                        callback(...)
+                        Callback(...)
                     end
 
                     function Config:Delete()
