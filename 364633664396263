@@ -2060,6 +2060,7 @@ end
                  local ToggleName = config.Name or "Toggle"
                  local Description = config.Description or ""
                  local Default = config.Default or false
+                 local ToggleDefault = Default
                   local Callback = config.Callback or function() end
                     
                     local Toggle = Instance.new("Frame")
@@ -2405,10 +2406,8 @@ end
     local Default = config.Default or Option[1]
     local Callback = config.Callback or function() end
 
-    local Selected = Default
-
-                    local isdropping = false
-                    local selectedValue = Description
+local isdropping = false
+local selectedValue = Default
 
                     -- === TRIGGER BUTTON (collapsed state) ===
                     local Dropdown = Instance.new("Frame")
@@ -2452,7 +2451,7 @@ end
                     DropSub.Position = UDim2.new(0, 11, 0, 25)
                     DropSub.Size = UDim2.new(0.85, 0, 0, 16)
                     DropSub.Font = Enum.Font.Gotham
-                    DropSub.Text = (selectedValue and tostring(selectedValue) ~= "" and selectedValue) or "Selected - None"
+                    DropSub.Text = selectedValue and tostring(selectedValue) or "Selected - None"
                     DropSub.TextColor3 = Color3.fromRGB(140, 140, 160)
                     DropSub.TextSize = 10
                     DropSub.TextXAlignment = Enum.TextXAlignment.Left
@@ -2685,10 +2684,10 @@ end
                         OverlayPanel.Size = UDim2.new(0, 200, 0, math.min(UIListLayout.AbsoluteContentSize.Y + 16, 220))
                     end)
 
-                    -- Call Default Callback if Default is valid
-                    if Default and table.find(Option, Default) then
-                        Callback(Default)
-                    end
+                    if selectedValue and table.find(Option, selectedValue) then
+    DropSub.Text = tostring(selectedValue)
+    pcall(Callback, selectedValue)
+end
 
                     SectionInfo:Update()
 
@@ -2792,14 +2791,13 @@ end
         error("AddSlider expects a table")
     end
 
-    -- Extract values from the table, with defaults
-    local SliderName = config.Name or "Slider"
-    local min = config.min or 0
-    local max = config.max or 100
-    local de = config.Default or min
-    local dallback = config.Callback or function() end
+local SliderName = config.Name or "Slider"
+local min = config.min or 0
+local max = config.max or 100
+local de = config.Default or min
+local Callback = config.Callback or function() end
 
-    local SliderValue = Default
+local SliderValue = de
                     local sliderfunc = {}
 
                     -- Outer card
