@@ -3049,7 +3049,7 @@ end
     if type(config) ~= "table" then
         error("AddButton expects a table")
     end
-    local ButtonName = config.Title or "Button"
+    local ButtonName = config.Name or "Button"
     local Callback = config.Callback or function() end
     
                     local Button = Instance.new("Frame")
