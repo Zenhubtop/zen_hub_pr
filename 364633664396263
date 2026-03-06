@@ -3042,105 +3042,98 @@ local SliderValue = de
                 end
 
 
-                function SectionInfo:AddButton(config)
+function SectionInfo:AddButton(config)
 
     if type(config) ~= "table" then
         error("AddButton expects a table")
     end
-    local ButtonName = config.Name or "Button"
+
+    local Name = config.Name or "Button"
     local Callback = config.Callback or function() end
-    
-                    local Button = Instance.new("Frame")
-                    local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-                    local ButtonMainFrame = Instance.new("Frame")
-                    local UICorner = Instance.new("UICorner")
-                    local UIGradient = Instance.new("UIGradient")
-                    local Text = Instance.new("TextLabel")
 
-                    Button.Name = "Button"
-                    Button.Parent = Content
-                    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    Button.BackgroundTransparency = 1.000
-                    Button.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    Button.BorderSizePixel = 0
-                    Button.Size = UDim2.new(0.980000019, 0, 0.5, 1)
-                    Button.ZIndex = 5
+    local Button = Instance.new("Frame")
+    Button.Name = "Button"
+    Button.Parent = Content
+    Button.BackgroundColor3 = Color3.fromRGB(28,28,34)
+    Button.BorderSizePixel = 0
+    Button.Size = UDim2.new(0.94,0,0,38)
+    Button.ZIndex = 5
 
-                    UIAspectRatioConstraint.Parent = Button
-                    UIAspectRatioConstraint.AspectRatio = 15.800
-                    UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
+    local Corner = Instance.new("UICorner")
+    Corner.CornerRadius = UDim.new(0,8)
+    Corner.Parent = Button
 
-                    ButtonMainFrame.Name = "ButtonMainFrame"
-                    ButtonMainFrame.Parent = Button
-                    ButtonMainFrame.AnchorPoint = Vector2.new(0.5, 0)
-                    ButtonMainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    ButtonMainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    ButtonMainFrame.BorderSizePixel = 0
-                    ButtonMainFrame.Position = UDim2.new(0.5, 0, 0, 0)
-                    ButtonMainFrame.Size = UDim2.new(0.949999988, 0, 1, 0)
-                    ButtonMainFrame.ZIndex = 6
+    local Stroke = Instance.new("UIStroke")
+    Stroke.Color = Color3.fromRGB(55,55,70)
+    Stroke.Thickness = 1
+    Stroke.Parent = Button
 
-                    UICorner.CornerRadius = UDim.new(0, 3)
-                    UICorner.Parent = ButtonMainFrame
+    local Text = Instance.new("TextLabel")
+    Text.Parent = Button
+    Text.BackgroundTransparency = 1
+    Text.Size = UDim2.new(1,0,1,0)
+    Text.Font = Enum.Font.GothamBold
+    Text.Text = Name
+    Text.TextColor3 = Color3.fromRGB(235,235,235)
+    Text.TextSize = 13
+    Text.ZIndex = 6
 
-                    UIGradient.Color =
-                        ColorSequence.new {
-                        ColorSequenceKeypoint.new(0.00, Alc.Config.MainColor),
-                        ColorSequenceKeypoint.new(1.00, Alc.Config.DropColor)
-                    }
-                    UIGradient.Rotation = 90
-                    UIGradient.Parent = ButtonMainFrame
+    local Click = Instance.new("TextButton")
+    Click.Parent = Button
+    Click.BackgroundTransparency = 1
+    Click.Size = UDim2.new(1,0,1,0)
+    Click.Text = ""
+    Click.ZIndex = 10
 
-                    Text.Name = "Text"
-                    Text.Parent = ButtonMainFrame
-                    Text.AnchorPoint = Vector2.new(0.5, 0.5)
-                    Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    Text.BackgroundTransparency = 1.000
-                    Text.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    Text.BorderSizePixel = 0
-                    Text.Position = UDim2.new(0.5, 0, 0.5, 0)
-                    Text.Size = UDim2.new(1, 0, 0.600000024, 0)
-                    Text.ZIndex = 6
-                    Text.Font = Enum.Font.GothamBold
-                    Text.Text = ButtonName or "Sea Event"
-                    Text.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    Text.TextScaled = false
-                    Text.TextSize = 14.000
-                    Text.TextWrapped = true
+    -- Hover
+    Click.MouseEnter:Connect(function()
+        TweenService:Create(Button,TweenInfo.new(0.15),{
+            BackgroundColor3 = Color3.fromRGB(36,36,45)
+        }):Play()
+    end)
 
-                    local c = cretate_button(ButtonMainFrame)
+    Click.MouseLeave:Connect(function()
+        TweenService:Create(Button,TweenInfo.new(0.15),{
+            BackgroundColor3 = Color3.fromRGB(28,28,34)
+        }):Play()
+    end)
 
-                    c.MouseButton1Down:Connect(
-                        function()
-                            TweenService:Create(UIGradient, TweenInfo.new(0.1), {Offset = Vector2.new(0, 1)}):Play()
-                        end
-                    )
+    -- Click animation
+    Click.MouseButton1Down:Connect(function()
+        TweenService:Create(Button,TweenInfo.new(0.08),{
+            Size = UDim2.new(0.93,0,0,36)
+        }):Play()
+    end)
 
-                    c.MouseButton1Up:Connect(
-                        function()
-                            TweenService:Create(UIGradient, TweenInfo.new(0.1), {Offset = Vector2.new(0, 0)}):Play()
-                        end
-                    )
+    Click.MouseButton1Up:Connect(function()
+        TweenService:Create(Button,TweenInfo.new(0.08),{
+            Size = UDim2.new(0.94,0,0,38)
+        }):Play()
+    end)
 
-                    c.MouseButton1Click:Connect(Callback)
+    Click.MouseButton1Click:Connect(function()
+        pcall(Callback)
+    end)
 
-                    local Config = {}
+    SectionInfo:Update()
 
-                    function Config:Text(...)
-                        Text.Text = tostring(...)
-                    end
+    local Config = {}
 
-                    function Config:Fire(...)
-                        Callback(...)
-                    end
+    function Config:Text(v)
+        Text.Text = tostring(v)
+    end
 
-                    function Config:Delete()
-                        Button:Destroy()
-                        UpdateSiz()
-                    end
+    function Config:Fire(...)
+        Callback(...)
+    end
 
-                    return Config
-                end
+    function Config:Delete()
+        Button:Destroy()
+        UpdateSiz()
+    end
+
+    return Config
+end
                 return SectionInfo
             end
 
